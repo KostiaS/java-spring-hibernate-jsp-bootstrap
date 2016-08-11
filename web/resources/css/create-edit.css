@@ -13,3 +13,6 @@ textarea {
 .space {
     width: 15px;
 }
+.error-message {
+    color: red;
+}

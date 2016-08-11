@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by Konstantin on 2016-08-07.
+ * Bean for index.jsp as collection of messages retriever
  */
 public class UserMessageList {
 

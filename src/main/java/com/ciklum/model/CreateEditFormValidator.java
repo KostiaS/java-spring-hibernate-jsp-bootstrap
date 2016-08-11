@@ -60,7 +60,7 @@ public class CreateEditFormValidator {
 
     /**
      * Checks if the input data corresponds to requirements: user name should be minimum 2 characters length,
-     * and doesn't contain special characters, message text should be minimum one character length.
+     * and doesn't contain special characters, message text should be minimum one character length and no longer than 255.
      * Puts error messages to errors object.
      * @return boolean result of operation: true if operation was successful and false if not
      */
@@ -80,6 +80,10 @@ public class CreateEditFormValidator {
         if(messageText.equals("")) {
             errors.put("messageText", "Please enter message text");
             messageText = "";
+            allOk = false;
+        }
+        if(messageText.length() > 255) {
+            errors.put("messageTextLength", "Message text should not be longer then 255 characters");
             allOk = false;
         }
         return allOk;

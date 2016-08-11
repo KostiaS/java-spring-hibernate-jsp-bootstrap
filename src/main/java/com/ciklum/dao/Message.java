@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 /**
  * Created by Konstantin on 2016-08-06.
- * Entity class for used for providing storing messages in the database using JPA.
+ * Entity class used for providing storing messages in the database using JPA.
  */
 
 @Entity
@@ -30,6 +30,10 @@ public class Message {
 
     public long getMessageId() {
         return messageId;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getMessageText() {

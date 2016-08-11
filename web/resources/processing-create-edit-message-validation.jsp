@@ -1,4 +1,3 @@
-<%@ page import="java.util.ResourceBundle" %>
 <%@ page import="com.ciklum.model.CreateEditFormValidator" %><%--
   Created by IntelliJ IDEA.
   User: Konstantin
@@ -11,7 +10,6 @@
     <jsp:setProperty name="formValidator" property="*" />
 </jsp:useBean>
 <%
-//        CreateEditFormValidator formValidator = new CreateEditFormValidator();
     if (formValidator.validate()) {
 %>
 <jsp:forward page="/save-message" />

@@ -1,5 +1,4 @@
 <%@ page import="com.ciklum.model.UserMessageList"%>
-<%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.ciklum.model.UserMessageData" %><%--
   Created by IntelliJ IDEA.
@@ -10,7 +9,6 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +24,7 @@
 </head>
 <body>
 <div class="container">
+    <!--Success or error message-->
     <%
         String result = request.getParameter("result");
         if(result != null) {
@@ -60,12 +59,14 @@
                     <td class="visible-sm visible-xs multiline-sm-xs"><%=userMessageData.getMessageText()%></td>
                     <td><%=userMessageData.getUserName()%></td>
                     <td>
+                        <!--Edit message button-->
                         <form style="margin-bottom: 5px" class="btn btn-default btn-group" action="/create-edit-message" method="get">
                             <input type="hidden" name="messageId" value="<%=userMessageData.getMessageId()%>">
                             <input type="hidden" name="userName" value="<%=userMessageData.getUserName()%>">
                             <input type="hidden" name="messageText" value="<%=userMessageData.getMessageText()%>">
                             <input class="clear-style" type="submit" name="editMessage" value="Edit">
                         </form>
+                        <!--Delete message button-->
                         <form style="margin-bottom: 5px" class="btn btn-default btn-group" action="/delete-message" method="post">
                             <input type="hidden" name="userId" value="<%=userMessageData.getUserId()%>">
                             <input type="hidden" name="messageId" value="<%=userMessageData.getMessageId()%>">
@@ -79,17 +80,7 @@
                 %>
             </tbody>
         </table>
-        <%--<div>user messageId: <%=userMessageData.getMessageId()%>, user name: <%=userMessageData.getUserName()%>, message: <%=userMessageData.getMessageText()%></div>--%>
-        <%--<a href="/create-edit-message/?messageId=<%=userMessageData.getMessageId()%>&userName=<%=userMessageData.getUserName()%>">Edit message</a>--%>
-    <%--    <form action="/delete-message" method="post">
-            <input type="hidden" name="userId" value="<%=userMessageData.getUserId()%>">
-            <input type="hidden" name="messageId" value="<%=userMessageData.getMessageId()%>">
-            <input type="hidden" name="userName" value="<%=userMessageData.getUserName()%>">
-            <input type="submit" name="deleteMessage" value="Delete message">
-        </form>--%>
-    <%--    <%
-            }
-        %>--%>
+        <!--Add new message button-->
         <div class="row margin-top-30px">
             <div class="col-lg-offset-5 col-lg-2">
                 <a class="btn btn-primary center-block" href="/create-edit-message">Add new message</a>

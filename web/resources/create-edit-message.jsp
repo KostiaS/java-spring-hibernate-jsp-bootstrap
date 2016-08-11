@@ -28,7 +28,6 @@
             long userId = 0L;
             long messageId = 0L;
             try {
-    //            userId = Long.valueOf(request.getParameter("userId"));
                 messageId = Long.valueOf(request.getParameter("messageId"));
                 userName = request.getParameter("userName");
                 messageText = request.getParameter("messageText");
@@ -37,20 +36,19 @@
                 }
                 readonly = "readonly";
             } catch (NumberFormatException e) {
-    //            userId = -1;
                 messageId = -1;
             }
         %>
         <form name="create-edit-message margin-top-30px" action="/processing-create-edit-message-validation" method="post">
             <div class="form-group">
-                <%--<input type="hidden" name="userId" value="<%=userId%>">--%>
                 <input type="hidden" name="messageId" value="<%=messageId%>">
                 <input class="form-control margin-top-15px" type="text" name="userName" value="<%=userName%>" placeholder="user name" <%=readonly%>>
                 <textarea rows="10" class="form-control margin-top-15px" type="text" name="messageText"
                           placeholder="type message text"><%=messageText%></textarea>
                 <div class="margin-top-15px pull-right">
+                    <!--Save button-->
                     <input class="btn btn-default" type="submit" name="saveBtn" value="Save">
-                    <%--<div class="space btn btn-default"></div>--%>
+                    <!--Cancel button-->
                     <a class="btn btn-default margin-left-5px" href="/">Cancel</a>
                 </div>
             </div>

@@ -1,11 +1,10 @@
 package com.ciklum.dao;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by Konstantin on 2016-08-06.
- * Entity class for used for providing storing users in the database using JPA.
+ * Entity class used for providing storing users in the database using JPA.
  */
 
 @Entity
@@ -34,7 +33,4 @@ public class User {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

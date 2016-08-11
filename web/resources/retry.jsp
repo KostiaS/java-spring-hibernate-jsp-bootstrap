@@ -35,14 +35,18 @@
         <div class="form-group">
             <input type="hidden" name="messageId" value="<%=messageId%>">
             <input class="form-control margin-top-15px" type="text" name="userName" value="<%=formValidator.getUserName() %>" placeholder="user name">
-            <div style="color: red"><%=formValidator.getErrorMsg("userName") %></div>
-            <div style="color: red"><%=formValidator.getErrorMsg("userNameRegex") %></div>
+            <!--Error messages-->
+            <div class="error-message"><%=formValidator.getErrorMsg("userName") %></div>
+            <div class="error-message"><%=formValidator.getErrorMsg("userNameRegex") %></div>
             <textarea rows="10" class="form-control margin-top-15px" type="text" name="messageText"
                       placeholder="type message text"><%=formValidator.getMessageText()%></textarea>
-            <div style="color: red"><%=formValidator.getErrorMsg("messageText") %></div>
+            <!--Error messages-->
+            <div class="error-message"><%=formValidator.getErrorMsg("messageText") %></div>
+            <div class="error-message"><%=formValidator.getErrorMsg("messageTextLength") %></div>
             <div class="margin-top-15px pull-right">
+                <!--Save button-->
                 <input class="btn btn-default" type="submit" name="saveBtn" value="Save">
-                <%--<div class="space btn btn-default"></div>--%>
+                <!--Cancel button-->
                 <a class="btn btn-default margin-left-5px" href="/">Cancel</a>
             </div>
         </div>
