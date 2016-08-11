@@ -21,7 +21,7 @@ public class DBAgent implements IAgent {
     @Transactional
     @Override
     public List<UserMessageData> getAllMessagesByUser() {
-        List<UserMessageData> userMessageList = new LinkedList<>();
+        List<UserMessageData> userMessageList = new LinkedList<UserMessageData>();
         Query queryUsers = em.createQuery("SELECT user FROM User user ORDER BY userName");
         List<User> users;
         try {
@@ -121,8 +121,9 @@ public class DBAgent implements IAgent {
             res = em.createQuery("DELETE FROM Message message WHERE message.messageId="
                     + userMessageData.getMessageId()).executeUpdate();
             if(res == 0) return false;
-            if((long)em.createQuery("SELECT COUNT(message.user) FROM Message message WHERE user.userId="
-                    + userMessageData.getUserId()).getSingleResult() == 0) {
+            Object count = em.createQuery("SELECT COUNT(message.user) FROM Message message WHERE user.userId="
+                    + userMessageData.getUserId()).getSingleResult();
+            if(count.toString().equals("0")) {
                 res = em.createQuery("DELETE FROM User user WHERE user.userId="
                         + userMessageData.getUserId()).executeUpdate();
             }

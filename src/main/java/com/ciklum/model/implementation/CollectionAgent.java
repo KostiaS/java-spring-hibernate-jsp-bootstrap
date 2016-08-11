@@ -10,12 +10,12 @@ import java.util.*;
  */
 public class CollectionAgent implements IAgent {
 
-    Map<String, Map<Long, String>> list = new TreeMap<>();
+    Map<String, Map<Long, String>> list = new TreeMap<String, Map<Long, String>>();
     long messageId = 1;
 
     @Override
     public List<UserMessageData> getAllMessagesByUser() {
-        List<UserMessageData> userMessageList = new LinkedList<>();
+        List<UserMessageData> userMessageList = new LinkedList<UserMessageData>();
         for(Map.Entry<String, Map<Long, String>> user: list.entrySet()) {
             for(Map.Entry<Long, String> message: user.getValue().entrySet()) {
                 userMessageList.add(new UserMessageData(
@@ -32,7 +32,7 @@ public class CollectionAgent implements IAgent {
         Map<Long, String> messages = list.get(userName);
         try {
             if(messages == null) {
-                messages = new HashMap<>();
+                messages = new HashMap<Long, String>();
             }
             messages.put(messageId, userMessageData.getMessageText());
             list.put(userName, messages);
