@@ -7,7 +7,6 @@ import com.ciklum.model.interfaces.IAgent;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,39 +26,28 @@ public class DBAgent implements IAgent {
         List<User> users;
         try {
             users = queryUsers.getResultList();
+            Query queryMessagesByUserId = em.createQuery("SELECT message FROM Message message WHERE user.userId=?1");
+            List<Message> messages;
+            for(User user: users) {
+                queryMessagesByUserId.setParameter(1, user.getUserId());
+                messages = queryMessagesByUserId.getResultList();
+                if(messages.size() > 0) {
+                    for(Message message: messages) {
+                        userMessageList.add(new UserMessageData(
+                                user.getUserId(),
+                                message.getMessageId(),
+                                user.getUserName(),
+                                message.getMessageText()
+                        ));
+                    }
+                }
+            }
         } catch (QueryTimeoutException e) {
             return null;
         } catch (TransactionRequiredException e) {
             return null;
         } catch (PersistenceException e) {
             return null;
-        }
-/*        for(User user: users) {
-            System.out.println(user.getUserName());
-        }*/
-        Query queryMessagesByUserId = em.createQuery("SELECT message FROM Message message WHERE user.userId=?1");
-        List<Message> messages;
-        for(User user: users) {
-            queryMessagesByUserId.setParameter(1, user.getUserId());
-            try {
-                messages = queryMessagesByUserId.getResultList();
-            } catch (QueryTimeoutException e) {
-                return null;
-            } catch (TransactionRequiredException e) {
-                return null;
-            } catch (PersistenceException e) {
-                return null;
-            }
-            if(messages.size() > 0) {
-                for(Message message: messages) {
-                    userMessageList.add(new UserMessageData(
-                            user.getUserId(),
-                            message.getMessageId(),
-                            user.getUserName(),
-                            message.getMessageText()
-                    ));
-                }
-            }
         }
         return userMessageList;
     }
@@ -72,6 +60,8 @@ public class DBAgent implements IAgent {
         query.setParameter(1, userMessageData.getUserName());
         try {
             user = (User) query.getSingleResult();
+            Message message = new Message(user, userMessageData.getMessageText());
+            em.persist(message);
         } catch (NoResultException e) {
             user = new User(userMessageData.getUserName());
             try {
@@ -86,12 +76,6 @@ public class DBAgent implements IAgent {
         } catch (PersistenceException e) {
             return false;
         }
-        Message message = new Message(user, userMessageData.getMessageText());
-        try {
-            em.persist(message);
-        } catch (TransactionRequiredException e) {
-            return false;
-        }
         return true;
     }
 
@@ -103,19 +87,15 @@ public class DBAgent implements IAgent {
         Message message;
         try {
             message = (Message) query.getSingleResult();
+            message.setMessageText(userMessageData.getMessageText());
+            em.merge(message);
+        } catch(EntityNotFoundException e) {
+            return false;
         } catch (QueryTimeoutException e) {
             return false;
         } catch (TransactionRequiredException e) {
             return false;
         } catch (PersistenceException e) {
-            return false;
-        }
-        message.setMessageText(userMessageData.getMessageText());
-        try {
-            em.merge(message);
-        } catch(TransactionRequiredException e) {
-            return false;
-        } catch(EntityNotFoundException e) {
             return false;
         }
         return true;
@@ -128,15 +108,7 @@ public class DBAgent implements IAgent {
         try {
             res = em.createQuery("DELETE FROM Message message WHERE message.messageId="
                     + userMessageData.getMessageId()).executeUpdate();
-        } catch (QueryTimeoutException e) {
-            return false;
-        } catch (TransactionRequiredException e) {
-            return false;
-        } catch (PersistenceException e) {
-            return false;
-        }
-        if(res == 0) return false;
-        try {
+            if(res == 0) return false;
             if((long)em.createQuery("SELECT COUNT(message.user) FROM Message message WHERE user.userId="
                     + userMessageData.getUserId()).getSingleResult() == 0) {
                 res = em.createQuery("DELETE FROM User user WHERE user.userId="
@@ -153,9 +125,4 @@ public class DBAgent implements IAgent {
         }
         return (res == 0) ? false : true;
     }
-/*    @Override
-    public void fillDatabase() {
-
-    }*/
-
 }

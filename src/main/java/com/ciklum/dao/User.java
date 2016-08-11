@@ -16,10 +16,6 @@ public class User {
 
     String userName;
 
-
-/*    @OneToMany
-    List<Message> message;*/
-
     public User() {
         super();
         // TODO Auto-generated constructor stub
@@ -28,11 +24,6 @@ public class User {
     public User(String userName) {
         this.userName = userName;
     }
-
-    /*    public User(String userName, List<Message> message) {
-        this.userName = userName;
-        this.message = message;
-    }*/
 
     public long getUserId() {
         return userId;
@@ -49,12 +40,4 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
-/*    public List<Message> getMessage() {
-        return message;
-    }
-
-    public void setMessage(List<Message> messages) {
-        this.message = messages;
-    }*/
 }

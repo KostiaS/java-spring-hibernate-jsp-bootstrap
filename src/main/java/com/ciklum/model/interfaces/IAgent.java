@@ -9,9 +9,7 @@ import java.util.List;
  */
 public interface IAgent {
     List<UserMessageData> getAllMessagesByUser();
-//    void fillDatabase();
     boolean addNewMessage(UserMessageData userMessageData);
-//    boolean addNewMessage(String userName, String messageText);
     boolean editMessage(UserMessageData userMessageData);
     boolean deleteMessage(UserMessageData userMessageData);
 }

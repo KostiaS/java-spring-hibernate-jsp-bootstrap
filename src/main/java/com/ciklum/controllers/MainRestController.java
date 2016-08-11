@@ -19,8 +19,6 @@ public class MainRestController {
     @RequestMapping(value = Constants.SAVE_MESSAGE, method = RequestMethod.POST)
     boolean saveMessage(@RequestBody UserMessageData userMessageData) {
         boolean res;
-//        System.out.println(userMessageData.getMessageId());
-//        System.out.println(userMessageData.getUserName());
         if(userMessageData.getMessageId() == -1) {
             res = agent.addNewMessage(userMessageData);
         } else  {
@@ -30,7 +28,6 @@ public class MainRestController {
     }
 
     @RequestMapping(value = Constants.DELETE_MESSAGE, method = RequestMethod.POST)
-//    boolean deleteMessage(@PathVariable long messageId, @PathVariable String userName) {
     boolean deleteMessage(@RequestBody UserMessageData userMessageData) {
         return agent.deleteMessage(userMessageData);
     }

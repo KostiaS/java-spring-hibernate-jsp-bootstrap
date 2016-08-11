@@ -10,34 +10,14 @@ import java.util.*;
  */
 public class CollectionAgent implements IAgent {
 
-/*    Map<Long, String> users = new HashMap<>();
-    Map<Long, String> messages = new HashMap<>();
-    Map<Long, Long> connections = new HashMap<>();*/
-//    Map<Long, Map<Long, String>> list = new HashMap<>();
     Map<String, Map<Long, String>> list = new HashMap<>();
     long messageId = 1;
 
     @Override
     public List<UserMessageData> getAllMessagesByUser() {
         List<UserMessageData> userMessageList = new LinkedList<>();
-/*        for(Map.Entry<Long, Long> connection: connections.entrySet()) {
-            UserMessageData userMessageData = new UserMessageData();
-            long userId = connection.getKey();
-            long messageId = connection.getValue();
-            userMessageData.setUserId(userId);
-            userMessageData.setMessageId(messageId);
-            userMessageData.setUserName(users.get(userId));
-            userMessageData.setMessageText(messages.get(messageId));
-            userMessageList.add(userMessageData);
-        }*/
         for(Map.Entry<String, Map<Long, String>> user: list.entrySet()) {
-//            String userName = user.getKey();
             for(Map.Entry<Long, String> message: user.getValue().entrySet()) {
-/*                UserMessageData userMessageData = new UserMessageData();
-                userMessageData.setUserName(userName);
-                userMessageData.setMessageId(message.getKey());
-                userMessageData.setMessageText(message.getValue());
-                userMessageList.add(userMessageData);*/
                 userMessageList.add(new UserMessageData(
                         user.getKey(), message.getKey(), message.getValue()
                 ));
@@ -48,27 +28,32 @@ public class CollectionAgent implements IAgent {
 
     @Override
     public boolean addNewMessage(UserMessageData userMessageData) {
-/*        long userId = userMessageData.getUserId();
-        long messageId = userMessageData.getMessageId();
-        connections.put(userId, messageId);
-        users.put(userId, userMessageData.getUserName());
-        messages.put(messageId, userMessageData.getMessageText());*/
         String userName = userMessageData.getUserName();
         Map<Long, String> messages = list.get(userName);
-        if(messages == null) {
-            messages = new HashMap<>();
+        try {
+            if(messages == null) {
+                messages = new HashMap<>();
+            }
+            messages.put(messageId, userMessageData.getMessageText());
+            list.put(userName, messages);
+            messageId++;
+        } catch (NullPointerException e) {
+            return false;
         }
-        messages.put(messageId, userMessageData.getMessageText());
-        list.put(userName, messages);
-        messageId++;
         return true;
     }
 
     @Override
     public boolean editMessage(UserMessageData userMessageData) {
-//        messages.replace(userMessageData.getMessageId(), userMessageData.getMessageText());
         Map<Long, String> messages = list.get(userMessageData.getUserName());
-        messages.replace(userMessageData.getMessageId(), userMessageData.getMessageText());
+        try {
+            messages.remove(userMessageData.getMessageId());
+            messages.put(userMessageData.getMessageId(), userMessageData.getMessageText());
+//          since 1.8
+//          messages.replace(userMessageData.getMessageId(), userMessageData.getMessageText());
+        } catch (NullPointerException e) {
+            return false;
+        }
         return true;
     }
 
@@ -76,9 +61,13 @@ public class CollectionAgent implements IAgent {
     public boolean deleteMessage(UserMessageData userMessageData) {
         String userName = userMessageData.getUserName();
         Map<Long, String> messages = list.get(userName);
-        messages.remove(userMessageData.getMessageId());
-        if(list.get(userName).size() == 0) {
-            list.remove(userName);
+        try {
+            messages.remove(userMessageData.getMessageId());
+            if(list.get(userName).size() == 0) {
+                list.remove(userName);
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
         return true;
     }

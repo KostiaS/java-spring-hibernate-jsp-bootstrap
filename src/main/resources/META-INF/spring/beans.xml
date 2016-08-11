@@ -16,8 +16,8 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
-    <bean id="agent" class="com.ciklum.model.implementation.DBAgent"/>
-    <!--<bean id="agent" class="com.ciklum.model.implementation.CollectionAgent"/>-->
+    <!--<bean id="agent" class="com.ciklum.model.implementation.DBAgent"/>-->
+    <bean id="agent" class="com.ciklum.model.implementation.CollectionAgent"/>
 
 
 </beans>
