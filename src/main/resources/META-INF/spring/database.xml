@@ -8,13 +8,17 @@
   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
   ">
 
-    <bean id="emf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-      <property name="persistenceUnitName" value="springHibernate" />
-    </bean>
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    <!-- Configures transaction management around @Transactional components -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="emf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="springHibernate" />
+    </bean>
+
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+    <!-- Drives transactions using local JPA APIs -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
-
 </beans>
