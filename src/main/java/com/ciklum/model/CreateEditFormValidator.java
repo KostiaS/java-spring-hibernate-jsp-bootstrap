@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Konstantin on 2016-08-09.
+ * Validate input data from create-edit-message page.
  */
 public class CreateEditFormValidator {
     private static final String USERNAME_PATTERN = "^[a-zA-Z0-9_-]{2,15}$";
@@ -57,6 +58,12 @@ public class CreateEditFormValidator {
         return (errorMsg == null) ? "" : errorMsg;
     }
 
+    /**
+     * Checks if the input data corresponds to requirements: user name should be minimum 2 characters length,
+     * and doesn't contain special characters, message text should be minimum one character length.
+     * Puts error messages to errors object.
+     * @return boolean result of operation: true if operation was successful and false if not
+     */
     public boolean validate() {
         boolean allOk = true;
         pattern = Pattern.compile(USERNAME_PATTERN);

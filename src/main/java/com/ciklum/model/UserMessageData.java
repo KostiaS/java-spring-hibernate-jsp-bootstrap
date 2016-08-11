@@ -2,6 +2,7 @@ package com.ciklum.model;
 
 /**
  * Created by Konstantin on 2016-08-06.
+ * Holds data such as user id, message id, user name and message text for interchanging.
  */
 public class UserMessageData {
     long userId;

@@ -8,14 +8,23 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Konstantin on 2016-08-08.
+ * Main RestController provides request mapping from MainClientController
  */
 @RestController
 @RequestMapping("/")
 public class MainRestController {
 
+    /**
+     * Auto wire bean of data storage mechanism
+     */
     @Autowired
     IAgent agent;
 
+    /**
+     * Maps request for saving message.
+     * @param userMessageData bean used as request body object
+     * @return boolean result of operation
+     */
     @RequestMapping(value = Constants.SAVE_MESSAGE, method = RequestMethod.POST)
     boolean saveMessage(@RequestBody UserMessageData userMessageData) {
         boolean res;
@@ -27,6 +36,11 @@ public class MainRestController {
         return res;
     }
 
+    /**
+     * Maps request for deleting message
+     * @param userMessageData bean used as request body object
+     * @return boolean result of operation
+     */
     @RequestMapping(value = Constants.DELETE_MESSAGE, method = RequestMethod.POST)
     boolean deleteMessage(@RequestBody UserMessageData userMessageData) {
         return agent.deleteMessage(userMessageData);

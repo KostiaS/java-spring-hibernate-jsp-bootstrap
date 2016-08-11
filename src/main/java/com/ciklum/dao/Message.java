@@ -1,12 +1,10 @@
 package com.ciklum.dao;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 
 /**
  * Created by Konstantin on 2016-08-06.
+ * Entity class for used for providing storing messages in the database using JPA.
  */
 
 @Entity

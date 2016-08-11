@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Created by Konstantin on 2016-08-06.
+ * Entity class for used for providing storing users in the database using JPA.
  */
 
 @Entity
