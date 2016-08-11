@@ -11,7 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-framework.version>4.3.2.RELEASE</spring-framework.version>
-        <hibernate.version>4.1.9.Final</hibernate.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
     </properties>
 
     <build>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.26</version>
+            <version>5.1.29</version>
         </dependency>
         <!-- Hibernate framework -->
         <dependency>

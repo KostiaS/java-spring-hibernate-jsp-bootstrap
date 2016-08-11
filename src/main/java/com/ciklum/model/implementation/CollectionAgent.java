@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class CollectionAgent implements IAgent {
 
-    Map<String, Map<Long, String>> list = new HashMap<>();
+    Map<String, Map<Long, String>> list = new TreeMap<>();
     long messageId = 1;
 
     @Override

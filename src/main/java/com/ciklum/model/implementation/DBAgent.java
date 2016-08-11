@@ -60,15 +60,27 @@ public class DBAgent implements IAgent {
         query.setParameter(1, userMessageData.getUserName());
         try {
             user = (User) query.getSingleResult();
-            Message message = new Message(user, userMessageData.getMessageText());
-            em.persist(message);
         } catch (NoResultException e) {
             user = new User(userMessageData.getUserName());
             try {
                 em.persist(user);
             } catch (TransactionRequiredException eTransaction) {
                 return false;
+            } catch (QueryTimeoutException eTimeout) {
+                return false;
+            } catch (PersistenceException ePersistence) {
+                return false;
             }
+        } catch (QueryTimeoutException e) {
+            return false;
+        } catch (TransactionRequiredException e) {
+            return false;
+        } catch (PersistenceException e) {
+            return false;
+        }
+        Message message = new Message(user, userMessageData.getMessageText());
+        try {
+            em.persist(message);
         } catch (QueryTimeoutException e) {
             return false;
         } catch (TransactionRequiredException e) {

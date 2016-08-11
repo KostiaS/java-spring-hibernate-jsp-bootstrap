@@ -12,11 +12,10 @@ import javax.persistence.*;
 @Entity
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long messageId;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     User user;
 
     String messageText;

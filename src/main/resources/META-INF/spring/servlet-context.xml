@@ -1,38 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-  http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+  http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
      http://www.springframework.org/schema/context
-   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-<!--    <bean messageId="emf"
-          class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="springHibernate" />
-    </bean>-->
-<!--    <bean
-            class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"
-    />-->
-    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <mvc:annotation-driven></mvc:annotation-driven>
     <context:component-scan base-package="com.ciklum.controllers" />
-    <!--<context:component-scan base-package="model"/>-->
-<!--    <bean messageId="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="emf"/>
-    </bean>-->
-
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/resources/"></property>
         <property name="suffix" value=".jsp"></property>
         <property name="exposeContextBeansAsAttributes" value="true"/>
     </bean>
-
     <mvc:resources location="resources" mapping="/**"/>
-    <mvc:annotation-driven></mvc:annotation-driven>
 
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
@@ -43,5 +27,4 @@
     </bean>
     <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
     </bean>
-    <!--<bean messageId="agent" class="com.ciklum.model.implementation.DBAgent"/>-->
 </beans>
