@@ -1,4 +1,4 @@
-package com.ciklum.common;
+package com.ciklum.model;
 
 /**
  * Created by Konstantin on 2016-08-06.

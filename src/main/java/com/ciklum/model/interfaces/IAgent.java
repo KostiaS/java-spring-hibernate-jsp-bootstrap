@@ -1,6 +1,6 @@
 package com.ciklum.model.interfaces;
 
-import com.ciklum.common.UserMessageData;
+import com.ciklum.model.UserMessageData;
 
 import java.util.List;
 

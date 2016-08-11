@@ -1,7 +1,7 @@
 package com.ciklum.controllers;
 
 import com.ciklum.common.Constants;
-import com.ciklum.common.UserMessageData;
+import com.ciklum.model.UserMessageData;
 import com.ciklum.model.UserMessageList;
 import com.ciklum.model.interfaces.IAgent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class MainClientController {
         UserMessageData userMessage = new UserMessageData(-1, messageId, userName, messageText);
         String response;
         try {
-            response = restTemplate.postForObject(Constants.DOMAIN/* + Constants.PORT*/ + Constants.SAVE_MESSAGE, userMessage, String.class);
+            response = restTemplate.postForObject(Constants.DOMAIN + Constants.SAVE_MESSAGE, userMessage, String.class);
         } catch (RestClientException e) {
             response = "not saved";
         }
@@ -64,7 +64,7 @@ public class MainClientController {
         String response;
         try {
             response = restTemplate.postForObject(
-                    Constants.DOMAIN/* + Constants.PORT*/ + Constants.DELETE_MESSAGE, userMessage, String.class);
+                    Constants.DOMAIN + Constants.DELETE_MESSAGE, userMessage, String.class);
         } catch (RestClientException e) {
             response = "not deleted";
         }

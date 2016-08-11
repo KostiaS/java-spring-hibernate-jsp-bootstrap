@@ -1,6 +1,6 @@
 package com.ciklum.model.implementation;
 
-import com.ciklum.common.UserMessageData;
+import com.ciklum.model.UserMessageData;
 import com.ciklum.dao.Message;
 import com.ciklum.dao.User;
 import com.ciklum.model.interfaces.IAgent;

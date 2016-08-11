@@ -1,7 +1,7 @@
 package com.ciklum.controllers;
 
 import com.ciklum.common.Constants;
-import com.ciklum.common.UserMessageData;
+import com.ciklum.model.UserMessageData;
 import com.ciklum.model.interfaces.IAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

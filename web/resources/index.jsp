@@ -1,7 +1,7 @@
 <%@ page import="com.ciklum.model.UserMessageList"%>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.ciklum.common.UserMessageData" %><%--
+<%@ page import="com.ciklum.model.UserMessageData" %><%--
   Created by IntelliJ IDEA.
   User: Konstantin
   Date: 2016-08-06
